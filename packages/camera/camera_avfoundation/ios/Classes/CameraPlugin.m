@@ -200,7 +200,8 @@
         [_camera startVideoRecordingWithResult:result];
       }
     } else if ([@"stopVideoRecording" isEqualToString:call.method]) {
-      [_camera stopVideoRecordingWithResult:result];
+       BOOL _stopStream = [call.arguments[@"isStopStream"] boolValue];
+      [_camera stopVideoRecordingWithResult:result isStopStream:_stopStream];
     } else if ([@"pauseVideoRecording" isEqualToString:call.method]) {
       [_camera pauseVideoRecordingWithResult:result];
     } else if ([@"resumeVideoRecording" isEqualToString:call.method]) {

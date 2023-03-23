@@ -680,7 +680,8 @@ NSString *const errorMethod = @"error";
   }
 }
 
-- (void)stopVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result {
+- (void)stopVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result
+    isStopStream:(BOOL)isStopStream{
   if (_isRecording) {
     _isRecording = NO;
 

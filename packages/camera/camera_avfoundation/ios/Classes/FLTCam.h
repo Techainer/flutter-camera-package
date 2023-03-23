@@ -59,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)startVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result
                 messengerForStreaming:(nullable NSObject<FlutterBinaryMessenger> *)messenger;
-- (void)stopVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result;
+- (void)stopVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result
+                                       isStopStream:(BOOL)isStopStream;
 - (void)pauseVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result;
 - (void)resumeVideoRecordingWithResult:(FLTThreadSafeFlutterResult *)result;
 - (void)lockCaptureOrientationWithResult:(FLTThreadSafeFlutterResult *)result

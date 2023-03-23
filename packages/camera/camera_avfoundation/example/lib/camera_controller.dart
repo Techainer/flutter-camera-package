@@ -347,7 +347,7 @@ class CameraController extends ValueNotifier<CameraValue> {
     }
 
     final XFile file =
-        await CameraPlatform.instance.stopVideoRecording(_cameraId);
+        await CameraPlatform.instance.stopVideoRecording(_cameraId, true);
     value = value.copyWith(
       isRecordingVideo: false,
       recordingOrientation: const Optional<DeviceOrientation>.absent(),

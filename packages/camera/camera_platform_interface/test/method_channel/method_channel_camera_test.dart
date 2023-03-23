@@ -631,7 +631,7 @@ void main() {
         );
 
         // Act
-        final XFile file = await camera.stopVideoRecording(cameraId);
+        final XFile file = await camera.stopVideoRecording(cameraId, true);
 
         // Assert
         expect(channel.log, <Matcher>[

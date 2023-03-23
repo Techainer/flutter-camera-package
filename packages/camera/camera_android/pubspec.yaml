@@ -21,7 +21,7 @@ dependencies:
   camera_platform_interface:
     git:
       url: https://github.com/Techainer/flutter-camera-package.git
-      ref: master
+      ref: develop_longnv_fix_camera_record
       path: packages/camera/camera_platform_interface
   flutter:
     sdk: flutter

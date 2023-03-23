@@ -11,7 +11,11 @@ dependencies:
 
 dev_dependencies:
   async: ^2.5.0
-  camera_platform_interface: ^2.1.0
+  camera_platform_interface:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: master
+      path: packages/camera/camera_platform_interface
   camera_web:
     path: ../
   cross_file: ^0.3.1

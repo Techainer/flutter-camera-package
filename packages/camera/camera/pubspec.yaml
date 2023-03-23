@@ -21,10 +21,26 @@ flutter:
         default_package: camera_web
 
 dependencies:
-  camera_android: ^0.10.1
-  camera_avfoundation: ^0.9.9
-  camera_platform_interface: ^2.3.2
-  camera_web: ^0.3.1
+  camera_android:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: master
+      path: packages/camera/camera_android
+  camera_avfoundation:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: master
+      path: packages/camera/camera_avfoundation
+  camera_platform_interface:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: master
+      path: packages/camera/camera_platform_interface
+  camera_web:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: master
+      path: packages/camera/camera_web
   flutter:
     sdk: flutter
   flutter_plugin_android_lifecycle: ^2.0.2

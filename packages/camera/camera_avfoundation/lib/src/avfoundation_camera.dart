@@ -272,10 +272,11 @@ class AVFoundationCamera extends CameraPlatform {
   }
 
   @override
-  Future<XFile> stopVideoRecording(int cameraId) async {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     final String? path = await _channel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId},
+      <String, dynamic>{'cameraId': cameraId,
+        'isStopStream': isStopStream},
     );
 
     if (path == null) {

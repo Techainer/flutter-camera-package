@@ -147,7 +147,7 @@ abstract class CameraPlatform extends PlatformInterface {
   }
 
   /// Stops the video recording and returns the file where it was saved.
-  Future<XFile> stopVideoRecording(int cameraId) {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) {
     throw UnimplementedError('stopVideoRecording() is not implemented.');
   }
 

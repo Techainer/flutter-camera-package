@@ -487,7 +487,7 @@ class CameraPlugin extends CameraPlatform {
   }
 
   @override
-  Future<XFile> stopVideoRecording(int cameraId) async {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     try {
       final XFile videoRecording =
           await getCamera(cameraId).stopVideoRecording();

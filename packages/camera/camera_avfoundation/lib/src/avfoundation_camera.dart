@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+import '../../../../cross_file/lib/cross_file.dart';
 import 'type_conversion.dart';
 import 'utils.dart';
 
@@ -272,10 +273,11 @@ class AVFoundationCamera extends CameraPlatform {
   }
 
   @override
-  Future<XFile> stopVideoRecording(int cameraId) async {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     final String? path = await _channel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId},
+      <String, dynamic>{'cameraId': cameraId,
+        'isStopStream': isStopStream},
     );
 
     if (path == null) {

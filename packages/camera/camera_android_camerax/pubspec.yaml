@@ -19,7 +19,11 @@ flutter:
 
 dependencies:
   async: ^2.5.0
-  camera_platform_interface: ^2.3.2
+  camera_platform_interface:
+    git:
+      url: https://github.com/Techainer/flutter-camera-package.git
+      ref: develop_longnv_fix_camera_record
+      path: packages/camera/camera_platform_interface
   flutter:
     sdk: flutter
   integration_test:

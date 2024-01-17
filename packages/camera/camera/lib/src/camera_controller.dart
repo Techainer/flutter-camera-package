@@ -11,6 +11,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../cross_file/lib/cross_file.dart';
+import '../../../camera_platform_interface/lib/src/platform_interface/camera_platform.dart';
 import '../camera.dart';
 
 /// Signature for a callback receiving the a camera image.
@@ -554,7 +556,7 @@ class CameraController extends ValueNotifier<CameraValue> {
   /// Stops the video recording and returns the file where it was saved.
   ///
   /// Throws a [CameraException] if the capture failed.
-  Future<XFile> stopVideoRecording() async {
+  Future<XFile> stopVideoRecording({bool? isStopStream = true}) async {
     _throwIfNotInitialized('stopVideoRecording');
     if (!value.isRecordingVideo) {
       throw CameraException(
@@ -563,13 +565,13 @@ class CameraController extends ValueNotifier<CameraValue> {
       );
     }
 
-    if (value.isStreamingImages) {
+    if (isStopStream ?? false && value.isStreamingImages) {
       await stopImageStream();
     }
 
     try {
-      final XFile file =
-          await CameraPlatform.instance.stopVideoRecording(_cameraId);
+      final XFile file = await CameraPlatform.instance
+          .stopVideoRecording(_cameraId, isStopStream ?? false);
       value = value.copyWith(
         isRecordingVideo: false,
         recordingOrientation: const Optional<DeviceOrientation>.absent(),

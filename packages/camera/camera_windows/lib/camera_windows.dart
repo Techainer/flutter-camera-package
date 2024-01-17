@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stream_transform/stream_transform.dart';
 
+import '../../../cross_file/lib/src/types/html.dart';
+
 /// An implementation of [CameraPlatform] for Windows.
 class CameraWindows extends CameraPlatform {
   /// Registers the Windows implementation of CameraPlatform.
@@ -120,7 +122,7 @@ class CameraWindows extends CameraPlatform {
     cameraEventStreamController.add(
       CameraInitializedEvent(
         requestedCameraId,
-        reply!['previewWidth']!,
+        reply['previewWidth']!,
         reply['previewHeight']!,
         ExposureMode.auto,
         false,
@@ -206,7 +208,7 @@ class CameraWindows extends CameraPlatform {
       <String, dynamic>{'cameraId': cameraId},
     );
 
-    return XFile(path!);
+    return XFile(path);
   }
 
   @override
@@ -237,15 +239,15 @@ class CameraWindows extends CameraPlatform {
   }
 
   @override
-  Future<XFile> stopVideoRecording(int cameraId) async {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     final String? path;
 
     path = await pluginChannel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId},
+      <String, dynamic>{'cameraId': cameraId, 'isStopStream': isStopStream},
     );
 
-    return XFile(path!);
+    return XFile(path);
   }
 
   @override
@@ -382,6 +384,7 @@ class CameraWindows extends CameraPlatform {
       case ResolutionPreset.low:
         return 'low';
     }
+    return null;
   }
 
   /// Converts messages received from the native platform into camera events.

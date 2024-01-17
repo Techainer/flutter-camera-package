@@ -12,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import '../../../../cross_file/lib/cross_file.dart';
 import 'camera.dart';
 import 'camera_service.dart';
 import 'types/types.dart';

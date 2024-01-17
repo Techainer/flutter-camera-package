@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../cross_file/lib/cross_file.dart';
 import '../../../camera_platform_interface/lib/src/platform_interface/camera_platform.dart';
 import '../camera.dart';
 

@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import '../../../../cross_file/lib/cross_file.dart';
 import 'type_conversion.dart';
 import 'utils.dart';
 

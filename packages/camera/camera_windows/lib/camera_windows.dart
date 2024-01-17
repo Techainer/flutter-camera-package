@@ -237,13 +237,12 @@ class CameraWindows extends CameraPlatform {
   }
 
   @override
-  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
+  Future<XFile> stopVideoRecording(int cameraId) async {
     final String? path;
 
     path = await pluginChannel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId,
-        'isStopStream': isStopStream},
+      <String, dynamic>{'cameraId': cameraId},
     );
 
     return XFile(path!);
@@ -398,7 +397,6 @@ class CameraWindows extends CameraPlatform {
             cameraId,
           ),
         );
-        break;
       case 'video_recorded':
         final Map<String, Object?> arguments =
             (call.arguments as Map<Object?, Object?>).cast<String, Object?>();
@@ -411,7 +409,6 @@ class CameraWindows extends CameraPlatform {
             maxDuration != null ? Duration(milliseconds: maxDuration) : null,
           ),
         );
-        break;
       case 'error':
         final Map<String, Object?> arguments =
             (call.arguments as Map<Object?, Object?>).cast<String, Object?>();
@@ -421,7 +418,6 @@ class CameraWindows extends CameraPlatform {
             arguments['description']! as String,
           ),
         );
-        break;
       default:
         throw UnimplementedError();
     }

@@ -1,6 +1,6 @@
 # Camera Plugin
 
-<?code-excerpt path-base="excerpts/packages/camera_example"?>
+<?code-excerpt path-base="example/lib"?>
 
 [![pub package](https://img.shields.io/pub/v/camera.svg)](https://pub.dev/packages/camera)
 
@@ -8,7 +8,7 @@ A Flutter plugin for iOS, Android and Web allowing access to the device cameras.
 
 |                | Android | iOS       | Web                    |
 |----------------|---------|-----------|------------------------|
-| **Support**    | SDK 21+ | iOS 11.0+ | [See `camera_web `][1] |
+| **Support**    | SDK 21+ | iOS 12.0+ | [See `camera_web `][1] |
 
 ## Features
 
@@ -70,7 +70,7 @@ void didChangeAppLifecycleState(AppLifecycleState state) {
   if (state == AppLifecycleState.inactive) {
     cameraController.dispose();
   } else if (state == AppLifecycleState.resumed) {
-    onNewCameraSelected(cameraController.description);
+    _initializeCameraController(cameraController.description);
   }
 }
 ```

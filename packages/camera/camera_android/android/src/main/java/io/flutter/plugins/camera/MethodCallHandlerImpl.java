@@ -126,8 +126,7 @@ final class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
         }
       case "stopVideoRecording":
         {
-          camera.stopVideoRecording(result,
-                  Objects.equals(call.argument("isStopStream"), true));
+          camera.stopVideoRecording(result);
           break;
         }
       case "pauseVideoRecording":

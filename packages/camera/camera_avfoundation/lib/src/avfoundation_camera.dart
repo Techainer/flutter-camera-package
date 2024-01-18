@@ -275,8 +275,7 @@ class AVFoundationCamera extends CameraPlatform {
   Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     final String? path = await _channel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId,
-        'isStopStream': isStopStream},
+      <String, dynamic>{'cameraId': cameraId, 'isStopStream': isStopStream},
     );
 
     if (path == null) {
@@ -581,6 +580,7 @@ class AVFoundationCamera extends CameraPlatform {
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         _deviceEventStreamController.add(DeviceOrientationChangedEvent(
             deserializeDeviceOrientation(arguments['orientation']! as String)));
+        break;
       default:
         throw MissingPluginException();
     }
@@ -604,6 +604,7 @@ class AVFoundationCamera extends CameraPlatform {
           deserializeFocusMode(arguments['focusMode']! as String),
           arguments['focusPointSupported']! as bool,
         ));
+        break;
       case 'resolution_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(CameraResolutionChangedEvent(
@@ -611,10 +612,12 @@ class AVFoundationCamera extends CameraPlatform {
           arguments['captureWidth']! as double,
           arguments['captureHeight']! as double,
         ));
+        break;
       case 'camera_closing':
         cameraEventStreamController.add(CameraClosingEvent(
           cameraId,
         ));
+        break;
       case 'video_recorded':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(VideoRecordedEvent(
@@ -624,12 +627,14 @@ class AVFoundationCamera extends CameraPlatform {
               ? Duration(milliseconds: arguments['maxVideoDuration']! as int)
               : null,
         ));
+        break;
       case 'error':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(CameraErrorEvent(
           cameraId,
           arguments['description']! as String,
         ));
+        break;
       default:
         throw MissingPluginException();
     }

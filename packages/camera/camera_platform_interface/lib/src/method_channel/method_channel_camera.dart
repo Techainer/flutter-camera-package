@@ -610,6 +610,7 @@ class MethodChannelCamera extends CameraPlatform {
           deserializeFocusMode(arguments['focusMode']! as String),
           arguments['focusPointSupported']! as bool,
         ));
+        break;
       case 'resolution_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(CameraResolutionChangedEvent(
@@ -617,10 +618,12 @@ class MethodChannelCamera extends CameraPlatform {
           arguments['captureWidth']! as double,
           arguments['captureHeight']! as double,
         ));
+        break;
       case 'camera_closing':
         cameraEventStreamController.add(CameraClosingEvent(
           cameraId,
         ));
+        break;
       case 'video_recorded':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(VideoRecordedEvent(
@@ -630,12 +633,14 @@ class MethodChannelCamera extends CameraPlatform {
               ? Duration(milliseconds: arguments['maxVideoDuration']! as int)
               : null,
         ));
+        break;
       case 'error':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(CameraErrorEvent(
           cameraId,
           arguments['description']! as String,
         ));
+        break;
       default:
         throw MissingPluginException();
     }

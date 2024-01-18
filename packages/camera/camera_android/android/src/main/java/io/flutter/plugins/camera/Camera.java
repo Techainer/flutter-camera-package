@@ -1152,7 +1152,7 @@ class Camera
       throws CameraAccessException {
     setStreamHandler(imageStreamChannel);
 
-    startCapture(false, true, flase);
+    startCapture(false, true, false);
     Log.i(TAG, "startPreviewWithImageStream");
   }
 

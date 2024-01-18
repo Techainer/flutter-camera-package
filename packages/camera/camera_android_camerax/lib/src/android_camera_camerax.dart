@@ -660,7 +660,7 @@ class AndroidCameraCameraX extends CameraPlatform {
   /// If the videoOutputPath is null the recording objects are cleaned up
   /// so starting a new recording is possible.
   @override
-  Future<XFile> stopVideoRecording(int cameraId) async {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     if (recording == null) {
       throw CameraException(
           'videoRecordingFailed',

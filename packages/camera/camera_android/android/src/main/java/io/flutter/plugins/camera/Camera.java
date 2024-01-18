@@ -788,7 +788,7 @@ class Camera
     }
   }
 
-  public void stopVideoRecording(@NonNull final Result result) {
+  public void stopVideoRecording(@NonNull final Result result, boolean isStopStream) {
     if (!recordingVideo) {
       result.success(null);
       return;

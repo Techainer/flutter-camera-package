@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-import '../../../camera_platform_interface/lib/src/types/camera_exception.dart';
 import 'type_conversion.dart';
 import 'utils.dart';
 

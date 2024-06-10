@@ -113,6 +113,7 @@ public class ResolutionFeature extends CameraFeature<ResolutionPreset> {
       throws IndexOutOfBoundsException {
     if (preset.ordinal() > ResolutionPreset.high.ordinal()) {
       preset = ResolutionPreset.high;
+      Log.d("Preset: ", "high");
     }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
       EncoderProfiles profile =

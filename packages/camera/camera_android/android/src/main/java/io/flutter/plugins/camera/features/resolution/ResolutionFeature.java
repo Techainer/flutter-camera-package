@@ -14,6 +14,7 @@ import androidx.annotation.VisibleForTesting;
 import io.flutter.plugins.camera.CameraProperties;
 import io.flutter.plugins.camera.features.CameraFeature;
 import java.util.List;
+import android.util.Log;
 
 /**
  * Controls the resolutions configuration on the {@link android.hardware.camera2} API.

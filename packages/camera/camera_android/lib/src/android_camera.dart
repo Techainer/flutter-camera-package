@@ -97,6 +97,7 @@ class AndroidCamera extends CameraPlatform {
     ResolutionPreset? resolutionPreset, {
     bool enableAudio = false,
   }) async {
+    print('-------- Test');
     try {
       final Map<String, dynamic>? reply = await _channel
           .invokeMapMethod<String, dynamic>('create', <String, dynamic>{
@@ -274,9 +275,7 @@ class AndroidCamera extends CameraPlatform {
   Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) async {
     final String? path = await _channel.invokeMethod<String>(
       'stopVideoRecording',
-      <String, dynamic>{'cameraId': cameraId,
-        'isStopStream': isStopStream
-      },
+      <String, dynamic>{'cameraId': cameraId, 'isStopStream': isStopStream},
     );
 
     if (path == null) {

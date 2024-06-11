@@ -24,7 +24,7 @@ dependencies:
   camera_android:
     git:
       url: https://github.com/Techainer/flutter-camera-package.git
-      ref: develop_longnv_fix_camera_record
+      ref: lucas_handle_resolution_prest
       path: packages/camera/camera_android
   camera_avfoundation:
     git:

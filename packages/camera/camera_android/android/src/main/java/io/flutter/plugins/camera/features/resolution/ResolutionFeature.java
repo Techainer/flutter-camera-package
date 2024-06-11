@@ -41,6 +41,7 @@ public class ResolutionFeature extends CameraFeature<ResolutionPreset> {
   public ResolutionFeature(
       CameraProperties cameraProperties, ResolutionPreset resolutionPreset, String cameraName) {
     super(cameraProperties);
+    Log.d("Preset: ", "init");
     this.currentSetting = resolutionPreset;
     try {
       this.cameraId = Integer.parseInt(cameraName, 10);

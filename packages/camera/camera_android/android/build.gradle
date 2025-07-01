@@ -29,6 +29,8 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 33
 
+    namespace "io.flutter.plugins.camera"
+
     defaultConfig {
         targetSdkVersion 31
         minSdkVersion 21

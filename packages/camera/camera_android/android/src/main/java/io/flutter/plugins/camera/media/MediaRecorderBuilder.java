@@ -8,7 +8,6 @@ import android.media.CamcorderProfile;
 import android.media.EncoderProfiles;
 import android.media.MediaRecorder;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import io.flutter.plugins.camera.SdkCapabilityChecker;
 import java.io.IOException;
 
@@ -20,64 +19,42 @@ public class MediaRecorderBuilder {
     }
   }
 
-  public static class RecordingParameters {
-    @NonNull public final String outputFilePath;
-    @Nullable public final Integer fps;
-    @Nullable public final Integer videoBitrate;
-    @Nullable public final Integer audioBitrate;
-
-    public RecordingParameters(@NonNull String outputFilePath) {
-      this(outputFilePath, null, null, null);
-    }
-
-    public RecordingParameters(
-        @NonNull String outputFilePath,
-        @Nullable Integer fps,
-        @Nullable Integer videoBitrate,
-        @Nullable Integer audioBitrate) {
-      this.outputFilePath = outputFilePath;
-      this.fps = fps;
-      this.videoBitrate = videoBitrate;
-      this.audioBitrate = audioBitrate;
-    }
-  }
-
+  private final String outputFilePath;
   private final CamcorderProfile camcorderProfile;
   private final EncoderProfiles encoderProfiles;
   private final MediaRecorderFactory recorderFactory;
-  @NonNull private final RecordingParameters parameters;
 
   private boolean enableAudio;
   private int mediaOrientation;
 
   public MediaRecorderBuilder(
-      @NonNull CamcorderProfile camcorderProfile, @NonNull RecordingParameters parameters) {
-    this(camcorderProfile, new MediaRecorderFactory(), parameters);
+      @NonNull CamcorderProfile camcorderProfile, @NonNull String outputFilePath) {
+    this(camcorderProfile, outputFilePath, new MediaRecorderFactory());
   }
 
   public MediaRecorderBuilder(
-      @NonNull EncoderProfiles encoderProfiles, @NonNull RecordingParameters parameters) {
-    this(encoderProfiles, new MediaRecorderFactory(), parameters);
+      @NonNull EncoderProfiles encoderProfiles, @NonNull String outputFilePath) {
+    this(encoderProfiles, outputFilePath, new MediaRecorderFactory());
   }
 
   MediaRecorderBuilder(
       @NonNull CamcorderProfile camcorderProfile,
-      MediaRecorderFactory helper,
-      @NonNull RecordingParameters parameters) {
+      @NonNull String outputFilePath,
+      MediaRecorderFactory helper) {
+    this.outputFilePath = outputFilePath;
     this.camcorderProfile = camcorderProfile;
     this.encoderProfiles = null;
     this.recorderFactory = helper;
-    this.parameters = parameters;
   }
 
   MediaRecorderBuilder(
       @NonNull EncoderProfiles encoderProfiles,
-      MediaRecorderFactory helper,
-      @NonNull RecordingParameters parameters) {
+      @NonNull String outputFilePath,
+      MediaRecorderFactory helper) {
+    this.outputFilePath = outputFilePath;
     this.encoderProfiles = encoderProfiles;
     this.camcorderProfile = null;
     this.recorderFactory = helper;
-    this.parameters = parameters;
   }
 
   @NonNull
@@ -102,62 +79,34 @@ public class MediaRecorderBuilder {
     mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
 
     if (SdkCapabilityChecker.supportsEncoderProfiles() && encoderProfiles != null) {
-      mediaRecorder.setOutputFormat(encoderProfiles.getRecommendedFileFormat());
-
       EncoderProfiles.VideoProfile videoProfile = encoderProfiles.getVideoProfiles().get(0);
+      EncoderProfiles.AudioProfile audioProfile = encoderProfiles.getAudioProfiles().get(0);
 
+      mediaRecorder.setOutputFormat(encoderProfiles.getRecommendedFileFormat());
       if (enableAudio) {
-        EncoderProfiles.AudioProfile audioProfile = encoderProfiles.getAudioProfiles().get(0);
-
         mediaRecorder.setAudioEncoder(audioProfile.getCodec());
-        mediaRecorder.setAudioEncodingBitRate(
-            (parameters.audioBitrate != null && parameters.audioBitrate.intValue() > 0)
-                ? parameters.audioBitrate
-                : audioProfile.getBitrate());
+        mediaRecorder.setAudioEncodingBitRate(audioProfile.getBitrate());
         mediaRecorder.setAudioSamplingRate(audioProfile.getSampleRate());
       }
-
       mediaRecorder.setVideoEncoder(videoProfile.getCodec());
-
-      int videoBitrate =
-          (parameters.videoBitrate != null && parameters.videoBitrate.intValue() > 0)
-              ? parameters.videoBitrate
-              : videoProfile.getBitrate();
-
-      mediaRecorder.setVideoEncodingBitRate(videoBitrate);
-
-      int fps =
-          (parameters.fps != null && parameters.fps.intValue() > 0)
-              ? parameters.fps
-              : videoProfile.getFrameRate();
-
-      mediaRecorder.setVideoFrameRate(fps);
-
+      mediaRecorder.setVideoEncodingBitRate(videoProfile.getBitrate());
+      mediaRecorder.setVideoFrameRate(videoProfile.getFrameRate());
       mediaRecorder.setVideoSize(videoProfile.getWidth(), videoProfile.getHeight());
     } else if (camcorderProfile != null) {
       mediaRecorder.setOutputFormat(camcorderProfile.fileFormat);
       if (enableAudio) {
         mediaRecorder.setAudioEncoder(camcorderProfile.audioCodec);
-        mediaRecorder.setAudioEncodingBitRate(
-            (parameters.audioBitrate != null && parameters.audioBitrate.intValue() > 0)
-                ? parameters.audioBitrate
-                : camcorderProfile.audioBitRate);
+        mediaRecorder.setAudioEncodingBitRate(camcorderProfile.audioBitRate);
         mediaRecorder.setAudioSamplingRate(camcorderProfile.audioSampleRate);
       }
       mediaRecorder.setVideoEncoder(camcorderProfile.videoCodec);
-      mediaRecorder.setVideoEncodingBitRate(
-          (parameters.videoBitrate != null && parameters.videoBitrate.intValue() > 0)
-              ? parameters.videoBitrate
-              : camcorderProfile.videoBitRate);
-      mediaRecorder.setVideoFrameRate(
-          (parameters.fps != null && parameters.fps.intValue() > 0)
-              ? parameters.fps
-              : camcorderProfile.videoFrameRate);
+      mediaRecorder.setVideoEncodingBitRate(camcorderProfile.videoBitRate);
+      mediaRecorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
       mediaRecorder.setVideoSize(
           camcorderProfile.videoFrameWidth, camcorderProfile.videoFrameHeight);
     }
 
-    mediaRecorder.setOutputFile(parameters.outputFilePath);
+    mediaRecorder.setOutputFile(outputFilePath);
     mediaRecorder.setOrientationHint(this.mediaOrientation);
 
     mediaRecorder.prepare();

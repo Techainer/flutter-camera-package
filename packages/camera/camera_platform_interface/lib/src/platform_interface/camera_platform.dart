@@ -140,13 +140,14 @@ abstract class CameraPlatform extends PlatformInterface {
 
   /// Starts a video recording.
   ///
+  /// The length of the recording can be limited by specifying the [maxVideoDuration].
+  /// By default no maximum duration is specified,
+  /// meaning the recording will continue until manually stopped.
+  /// With [maxVideoDuration] set the video is returned in a [VideoRecordedEvent]
+  /// through the [onVideoRecordedEvent] stream when the set duration is reached.
+  ///
   /// This method is deprecated in favour of [startVideoCapturing].
-  Future<void> startVideoRecording(
-    int cameraId, {
-    @Deprecated(
-        'This parameter is unused, and will be ignored on all platforms')
-    Duration? maxVideoDuration,
-  }) {
+  Future<void> startVideoRecording(int cameraId, {Duration? maxVideoDuration}) {
     throw UnimplementedError('startVideoRecording() is not implemented.');
   }
 
@@ -155,11 +156,12 @@ abstract class CameraPlatform extends PlatformInterface {
   /// Please see [VideoCaptureOptions] for documentation on the
   /// configuration options.
   Future<void> startVideoCapturing(VideoCaptureOptions options) {
-    return startVideoRecording(options.cameraId);
+    return startVideoRecording(options.cameraId,
+        maxVideoDuration: options.maxDuration);
   }
 
   /// Stops the video recording and returns the file where it was saved.
-  Future<XFile> stopVideoRecording(int cameraId) {
+  Future<XFile> stopVideoRecording(int cameraId, bool isStopStream) {
     throw UnimplementedError('stopVideoRecording() is not implemented.');
   }
 
@@ -172,9 +174,6 @@ abstract class CameraPlatform extends PlatformInterface {
   Future<void> resumeVideoRecording(int cameraId) {
     throw UnimplementedError('resumeVideoRecording() is not implemented.');
   }
-
-  /// Check whether this platform supports image streaming via [onStreamedFrameAvailable].
-  bool supportsImageStreaming() => false;
 
   /// A new streamed frame is available.
   ///
@@ -222,8 +221,7 @@ abstract class CameraPlatform extends PlatformInterface {
 
   /// Gets the supported step size for exposure offset for the selected camera in EV units.
   ///
-  /// Returns 0 when the camera supports using a free value without stepping and
-  /// returns -1 when exposure compensation is not supported.
+  /// Returns 0 when the camera supports using a free value without stepping.
   Future<double> getExposureOffsetStepSize(int cameraId) {
     throw UnimplementedError('getMinExposureOffset() is not implemented.');
   }

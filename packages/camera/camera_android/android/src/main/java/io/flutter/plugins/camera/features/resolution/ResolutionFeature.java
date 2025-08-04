@@ -172,16 +172,19 @@ public class ResolutionFeature extends CameraFeature<ResolutionPreset> {
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_HIGH)) {
           return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_HIGH);
         }
+        return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_720P);
         // fall through
       case ultraHigh:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_2160P)) {
           return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_2160P);
         }
+        return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_720P);
         // fall through
       case veryHigh:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_1080P)) {
           return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_1080P);
         }
+        return CamcorderProfile.get(cameraId, CamcorderProfile.QUALITY_720P);
         // fall through
       case high:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_720P)) {
@@ -226,16 +229,19 @@ public class ResolutionFeature extends CameraFeature<ResolutionPreset> {
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_HIGH)) {
           return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_HIGH);
         }
+        return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_720P);
         // fall through
       case ultraHigh:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_2160P)) {
           return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_2160P);
         }
+        return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_720P);
         // fall through
       case veryHigh:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_1080P)) {
           return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_1080P);
         }
+        return CamcorderProfile.getAll(cameraIdString, CamcorderProfile.QUALITY_720P);
         // fall through
       case high:
         if (CamcorderProfile.hasProfile(cameraId, CamcorderProfile.QUALITY_720P)) {
